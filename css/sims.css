@@ -19,10 +19,12 @@ h1 {
 
 h2 {
   font-weight: bold;
+  margin-bottom: 20px;
 }
 
 h3 {
   font-weight: bold;
+  margin-top: 40px;
   text-decoration: underline;
 }
 
@@ -147,7 +149,7 @@ main div {
   color: #ffffff;     /* text colour */
   border: #e60000;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 1.2em;
   padding: 15px;
   margin-left: 30px;
   margin-right: 30px;
@@ -165,4 +167,13 @@ main div {
 
 .btn-a {
   color: #ffffff;
+}
+
+.btn-img.btn-a {
+  color:#B71C1C;
+}
+
+.holder {
+  margin-left: auto;
+  margin-right: auto;
 }
