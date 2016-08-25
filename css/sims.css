@@ -41,6 +41,10 @@ a:hover {
 	width: 80%;
 }
 
+.text-center {
+  margin-top: 0px;
+}
+
 .titledesc{
     font-size:1.1em;
 }
@@ -126,11 +130,12 @@ p {
 }
 
 #map {
+  margin-top: 25px;
   height: 500px;
 }
 
-main div {
-  margin-top: 40px;
+main {
+  margin-top: 60px;
 }
 
 .navbar-right {
@@ -173,7 +178,19 @@ main div {
   color:#B71C1C;
 }
 
-.holder {
-  margin-left: auto;
-  margin-right: auto;
+.img-head {
+  margin-top: 15px;
+  border-radius: 10px;
+}
+
+.col-cat {
+  width:25%;
+}
+
+li {
+  list-style-type: none;
+}
+
+ul {
+  padding-left: 0px;
 }
