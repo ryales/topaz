@@ -22,7 +22,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
           </button>
-          <h1>Topaz Responder: Mediterranean Rescues</h1>
+          <h1>TOPAZ RESPONDER: MEDITERRANEAN SEARCH AND RESCUE</h1>
       </div>
       <nav id="navbar" class="collapse navbar-collapse" role="navigation">
           <ul class="nav navbar-nav navbar-right">
@@ -39,11 +39,14 @@
 
     <main>
       <div class="col-md-6">
-      <div id="map"></div>
+      <div id="map">
+        <iframe width="100%" height="800" frameborder="0" src="https://nlrc.carto.com/u/redcross-sims/viz/557e110a-6460-11e6-b925-0ecd1babdde5/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+      </div>
     </div>
       <div class="col-md-6">
         <div id="content">
-          <p>The International Federation of Red Cross and Red Crescent Societies is funding the Topaz Responder, a rescue vessel sailing the waters off the coast of Libya.</p>
+          <h2>Stop Indifference: Red Cross Launches Search and Rescue Operations</h2>
+          <p><i>The Red Cross has launched its first search and rescue ship  in a bid to save the lives of people crossing the Mediterranean in search of refuge and safety in Europe. The Italian Red Cross, with support from the IFRC, is partnering with independent charity Migrant Offshore Aid Station (MOAS) in a joint life-saving mission on board the “Responder” rescue ship.</i></p>
 
           <p>When you click on a rescue operation, a profile of a migrant or more pictures appear here.</p>
 
@@ -51,9 +54,12 @@
 
           <p>Links to content about the waiting sites/smuggling in Libya or even profiles on other origin countries, or about the Croce Rossa in the Italian port cities. This would be next steps and content would come from elsewhere in IFRC.</p>
 
-          <h3>Learn More</h3>
-          <button>Who are they?</button>
-          <button>What happens next?</button>
+          <h3>Background Information on the Operation</h3>
+            <div class="row">
+              <button class="btn btn-primary btn-md"><a class="btn-a" target="_blank" href="http://ifrc.us13.list-manage1.com/track/click?u=f384fe9dde60018f07b31b034&id=2668ca4c51&e=144a801949">Facts & Figures</a></button>
+              <button class="btn btn-primary btn-md"><a class="btn-a" target="_blank" href="http://www.ifrc.org/en/news-and-media/news-stories/europe-central-asia/italy/life-saving-mission-begins-in-the-mediterranean-as-red-cross-launches-rescue-boat-72416/">IFRC News Story</a></button>
+              <button class="btn btn-primary btn-md"><a class="btn-a" target="_blank" href="http://ifrc.us13.list-manage1.com/track/click?u=f384fe9dde60018f07b31b034&id=66f35d014c&e=144a801949">Questions & Answers</a></button>
+            </div>
 
 
         </div>
@@ -65,7 +71,7 @@
   /*window.onload = function() {
     cartodb.createVis('map', 'https://nlrc.carto.com/u/redcross-sims/api/v2/viz/557e110a-6460-11e6-b925-0ecd1babdde5/viz.json');
   }s*/
-  var map = L.map('map').setView([33.5, 12], 7);
+  /*var map = L.map('map').setView([33.5, 12], 7);
   L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoieWFjYXJhMTUiLCJhIjoiNXVrS0RCayJ9.bj4shIClebK96-k4pHzgdA', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
     maxZoom: 12
@@ -75,7 +81,7 @@
   var layerUrl = 'https://nlrc.carto.com/u/redcross-sims/api/v2/viz/557e110a-6460-11e6-b925-0ecd1babdde5/viz.json';
   cartodb.createLayer(map, layerUrl, {
     legends:false
-  }).addTo(map);
+  }).addTo(map);*/
 
 </script>
 </body>
