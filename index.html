@@ -11,31 +11,37 @@
   <script src="js/d3.min.js"></script>
   <script src="js/cartodb.js"></script>
 
-  <style>
-    body {
-      padding: 0;
-      margin: 0;
-    }
-    html, body, #map {
-      height: 500px;
-    }
-  </style>
 </head>
 <body class="container-fluid">
-    <header class="row">
-      <div class="col-md-8">
-        <h1>Topaz Responder: Mediterranean Rescues</h1>
-      </div> <!-- col-md-8 -->
-      <div class="col-md-4">
-        <p class="rightalign" id="img"><a target="_blank" href="http://www.ifrc.org"><img src="img/IFRC_logo_English_CMYK.svg" height="50" width="300" /></a></p>
-      </div> <!-- col-md-4 -->
-    </header>
+  <header class="navbar navbar-default navbar-fixed-top">
+    <div class="nav_content">
+      <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+          <h1>Topaz Responder: Mediterranean Rescues</h1>
+      </div>
+      <nav id="navbar" class="collapse navbar-collapse" role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+              <li>
+              <a href="http://brcmapsteam.github.io/Europe_response/">IM Portal</a>
+              </li>
+              <li>
+                  <a target="_blank" id="logo" href="http://www.ifrc.org"><img src="img/IFRC_logo_English_CMYK.svg" height="50" width="300" /></a>
+              </li>
+          </ul>
+      </nav>
+    </div>
+</header>
 
     <main>
-      <div class="col-md-8">
+      <div class="col-md-6">
       <div id="map"></div>
     </div>
-      <div class="col-md-4">
+      <div class="col-md-6">
         <div id="content">
           <p>The International Federation of Red Cross and Red Crescent Societies is funding the Topaz Responder, a rescue vessel sailing the waters off the coast of Libya.</p>
 
@@ -56,7 +62,10 @@
 
 
 <script>
-  var map = L.map('map').setView([34.5, 14.5], 7);
+  /*window.onload = function() {
+    cartodb.createVis('map', 'https://nlrc.carto.com/u/redcross-sims/api/v2/viz/557e110a-6460-11e6-b925-0ecd1babdde5/viz.json');
+  }s*/
+  var map = L.map('map').setView([33.5, 12], 7);
   L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoieWFjYXJhMTUiLCJhIjoiNXVrS0RCayJ9.bj4shIClebK96-k4pHzgdA', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
     maxZoom: 12
@@ -64,7 +73,9 @@
 
   // add the cartodb layer
   var layerUrl = 'https://nlrc.carto.com/u/redcross-sims/api/v2/viz/557e110a-6460-11e6-b925-0ecd1babdde5/viz.json';
-  cartodb.createLayer(map, layerUrl).addTo(map);
+  cartodb.createLayer(map, layerUrl, {
+    legends:false
+  }).addTo(map);
 
 </script>
 </body>
