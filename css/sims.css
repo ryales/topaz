@@ -7,6 +7,7 @@ body {
     margin-bottom:20px;
 }
 
+  
 /* Red Headings */
 h1,h2 {
     color:#B71C1C;
@@ -156,8 +157,9 @@ main {
   font-weight: bold;
   font-size: 1.2em;
   padding: 15px;
-  margin-left: 30px;
-  margin-right: 30px;
+  border-radius: 10px;
+  margin-left: 2%;
+  margin-right: 2%;
 }
 
 .btn-primary:hover, .btn-primary:focus {
@@ -193,4 +195,21 @@ li {
 
 ul {
   padding-left: 0px;
+}
+
+@media (max-width: 768px) {
+  .btn-responsive {
+    padding:2px 4px;
+    font-size:80%;
+    line-height: 1;
+    border-radius:3px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  .btn-responsive {
+    padding:4px 9px;
+    font-size:90%;
+    line-height: 1.2;
+  }
 }
