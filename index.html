@@ -9,7 +9,10 @@
   <!-- Javascript Libraries -->
   <script src="js/jquery.js"></script>
   <script src="js/d3.min.js"></script>
-  <script src="js/cartodb.js"></script>
+  <script src="js/chart.js"></script>
+  <script src="js/leaflet.js"></script>
+  <script src="js/crossfilter.min.js"></script>
+  <script src="js/dc.min.js"></script>
 
 </head>
 <body class="container-fluid">
@@ -27,7 +30,7 @@
       <nav id="navbar" class="collapse navbar-collapse" role="navigation">
           <ul class="nav navbar-nav navbar-right">
               <li>
-              <a href="http://brcmapsteam.github.io/Europe_response/">IM Portal</a>
+              <button class="btn btn-primary btn-md btn-header"><a class="btn-a" href="http://brcmapsteam.github.io/Europe_response/">IM Portal</a></button>
               </li>
               <li>
                   <a target="_blank" id="logo" href="http://www.ifrc.org"><img src="img/IFRC_logo_English_CMYK.svg" height="50" width="300" /></a>
@@ -35,105 +38,266 @@
           </ul>
       </nav>
     </div>
-</header>
+  </header>
 
-    <main>
+  <main>
+    <div class="row">
       <div class="col-md-5">
-      <div id="map">
-        <iframe width="100%" height="800" frameborder="0" src="https://nlrc.carto.com/u/redcross-sims/viz/557e110a-6460-11e6-b925-0ecd1babdde5/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-      </div>
-    </div>
+        <p class="map-text"><i>Explore the map to read more about completed search and rescue operations. If you require access, please contact the <a href="mailto:henk.hoff@ifrc.org">Europe Region IM Delegate</a>.</i></p>
+        <div id="map">
+          <iframe width="100%" height="800" frameborder="0" src="https://nlrc.carto.com/u/redcross-sims/viz/557e110a-6460-11e6-b925-0ecd1babdde5/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+        </div> <!-- map -->
+      </div> <!-- left column -->
       <div class="col-md-7">
         <div id="content">
           <h2>Stop Indifference: Red Cross Launches Search and Rescue Operations</h2>
-          <p>The Red Cross has launched its first search and rescue ship  in a bid to save the lives of people crossing the Mediterranean in search of refuge and safety in Europe. The <a href="http://www.cri.it/home">Italian Red Cross</a>, with support from the IFRC, is partnering with independent charity <a href="https://www.moas.eu/">Migrant Offshore Aid Station (MOAS)</a> in a joint life-saving mission on board the “Responder” rescue ship.</p>
-
-          <p><i>Explore the map to read more about completed search and rescue operations. If you believe you require access to the webmap, please contact the <a href="mailto:henk.hoff@ifrc.org">Europe Region IM Delegate</a>.</i></p>
-
-          <h3>Background Information on the Operation</h3>
-            <p><i>May require FedNet login</i></p>
-            <div class="row">
-            <div class="text-center">
-            <div class="col-md-3">
-              <button class="btn btn-primary btn-md"><a class="btn-a" target="_blank" href="http://ifrc.us13.list-manage1.com/track/click?u=f384fe9dde60018f07b31b034&id=2668ca4c51&e=144a801949">Facts & Figures</a></button>
-              </div>
+              <div class="col-sm-3">
+                <div id="key_stats"></div>
+                <canvas id="mwcChart" width="80%" height="80%"></canvas>
+                <div id="mwc_pieChart"></div>
+              </div> <!-- summary stats -->
               <div class="col-md-1"></div>
-              <div class="col-md-3">
-              <button class="btn btn-primary btn-sm btn-img"><a class="btn-a" target="_blank" href="https://www.youtube.com/playlist?list=PLrI6tpZ6pQmRcjvhW_s9dnoaqIB-KbCvm">360 Tour of the<br/>Topaz Responder</a></button>
-              </div>
-              <div class="col-md-1"></div>
-              <div class="col-md-3">
-              <button class="btn btn-primary btn-sm"><a class="btn-a" target="_blank" href="http://ifrc.us13.list-manage1.com/track/click?u=f384fe9dde60018f07b31b034&id=66f35d014c&e=144a801949">Questions &amp; Answers</a></button>
-              </div>
+              <div class="col-md-8">
+                <h3>Background Information on the Operation</h3>
+                  <p><i>May require FedNet login</i></p>
+                    <div class="text-center">
+                    <button class="btn btn-primary btn-sm"><a class="btn-a" target="_blank" href="http://ifrc.us13.list-manage1.com/track/click?u=f384fe9dde60018f07b31b034&id=2668ca4c51&e=144a801949">Facts & Figures</a></button>
+
+                    <button class="btn btn-primary btn-sm"><a class="btn-a" target="_blank" href="https://www.youtube.com/playlist?list=PLrI6tpZ6pQmRcjvhW_s9dnoaqIB-KbCvm">360 Tour of the<br/>Topaz Responder</a></button>
+
+                    <button class="btn btn-primary btn-sm"><a class="btn-a" target="_blank" href="http://ifrc.us13.list-manage1.com/track/click?u=f384fe9dde60018f07b31b034&id=66f35d014c&e=144a801949">Questions &amp; Answers</a></button>
+                    </div> <!-- text center div -->
+
+                <h3>Media on the Operation</h3>
+                  <div class="row">
+                  <div class="text-center">
+                    <div class="col-md-3">
+                      <img class="img-head" height="100px" src="img/topaz_responder.jpg"/><br/><h4>Videos</h4>
+                      <ul>
+                        <li><a href="https://www.youtube.com/watch?v=jCfyl0RXJrQ">Mediterranean Rescue</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=kK9rclYMPCQ">Post-Rescue Support</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=baOEeYvxcvE">Interview with Personnel</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                      <img class="img-head" height="100px" src="img/topaz_team.jpg"/><br/><h4>News Stories</h4>
+                      <ul>
+                        <li><a href="https://medium.com/@IFRC/diary-of-a-sea-rescue-c819370d9d5d#.cegogcgdq">Diary of a Sea Rescue</a></li>
+                        <li><a href="https://medium.com/@IFRC/rescue-boat-medic-the-people-we-save-at-sea-get-a-second-life-205900ceee53#.e8jbye1hz">A Second Life at Sea</a></li>
+                        <li><a href="http://www.ifrc.org/en/news-and-media/news-stories/europe-central-asia/italy/life-saving-mission-begins-in-the-mediterranean-as-red-cross-launches-rescue-boat-72416/">IFRC News</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                      <img class="img-head" height="100px" src="img/gallery.jpg"/><br/><h4>Photos</h4>
+                      <ul>
+                        <li><a href="https://www.flickr.com/photos/ifrc/sets/72157628082270416/">Flickr Gallery</a></li>
+                        <li><a href="https://av.ifrc.org/pincollection.jspx?collectionName=%7B96b53e40-d44c-0743-8079-3d48573a6cc1%7D">IFRC Gallery</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <h3>Follow the Boat on Social Media</h3>
+                  <div class="row">
+                    <div class="text-center">
+                      <div class="col-md-3">
+                        <a href="https://twitter.com/RosemarieNorth"><img src="img/Twitter_Logo_White_On_Blue.png" height="60" width="60" /></a>
+                      </div>
+                      <div class="col-md-1"></div>
+                      <div class="col-md-3">
+                      <a href="https://www.youtube.com/channel/UCZ8xf9ZrTOv7SeYK7U5eKVg"><img src="img/YouTube-icon-full_color.png" height="60" width="60" /></a>
+                      </div>
+                      <div class="col-md-1"></div>
+                      <div class="col-md-3">
+                      <a href="https://medium.com/@IFRC"><img src="img/medium.jpg" height="60" width="60" /></a>
+                      </div>
+                    </div>
+                  </div>
             </div>
-          </div>
-
-          <h3>Media on the Operation</h3>
-            <div class="row">
-            <div class="text-center">
-              <div class="col-md-3">
-                <img class="img-head" height="100px" src="img/topaz_responder.jpg"/><br/><h4>Videos</h4>
-                <ul>
-                  <li><a href="https://www.youtube.com/watch?v=jCfyl0RXJrQ">Mediterranean Rescue</a></li>
-                  <li><a href="https://www.youtube.com/watch?v=kK9rclYMPCQ">Post-Rescue Support</a></li>
-                  <li><a href="https://www.youtube.com/watch?v=baOEeYvxcvE">Interview with Personnel</a></li>
-                </ul>
-              </div>
-              <div class="col-md-1"></div>
-              <div class="col-md-3">
-                <img class="img-head" height="100px" src="img/topaz_team.jpg"/><br/><h4>News Stories</h4>
-                <ul>
-                  <li><a href="https://medium.com/@IFRC/diary-of-a-sea-rescue-c819370d9d5d#.cegogcgdq">Diary of a Sea Rescue</a></li>
-                  <li><a href="https://medium.com/@IFRC/rescue-boat-medic-the-people-we-save-at-sea-get-a-second-life-205900ceee53#.e8jbye1hz">A Second Life at Sea</a></li>
-                  <li><a href="http://www.ifrc.org/en/news-and-media/news-stories/europe-central-asia/italy/life-saving-mission-begins-in-the-mediterranean-as-red-cross-launches-rescue-boat-72416/">IFRC News</a></li>
-                </ul>
-              </div>
-              <div class="col-md-1"></div>
-              <div class="col-md-3">
-                <img class="img-head" height="100px" src="img/gallery.jpg"/><br/><h4>Photos</h4>
-                <ul>
-                  <li><a href="https://www.flickr.com/photos/ifrc/sets/72157628082270416/">Flickr Gallery</a></li>
-                  <li><a href="https://av.ifrc.org/pincollection.jspx?collectionName=%7B96b53e40-d44c-0743-8079-3d48573a6cc1%7D">IFRC Gallery</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <h3>Follow the Boat on Social Media</h3>
-            <div class="row">
-              <div class="text-center">
-                <div class="col-md-3">
-                  <a href="https://twitter.com/RosemarieNorth"><img src="img/Twitter_Logo_White_On_Blue.png" height="60" width="60" /></a>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                <a href="https://www.youtube.com/channel/UCZ8xf9ZrTOv7SeYK7U5eKVg"><img src="img/YouTube-icon-full_color.png" height="60" width="60" /></a>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                <a href="https://medium.com/@IFRC"><img src="img/medium.jpg" height="60" width="60" /></a>
-                </div>
-              </div>
-            </div>          
+          </div> <!-- content -->      
+        </div> <!-- right column -->
       </div>
-    </main>
+    </div>
+  </main>
+
+    <footer>
+      <p class="desc">The Red Cross has launched its first search and rescue ship  in a bid to save the lives of people crossing the Mediterranean in search of refuge and safety in Europe. The <a href="http://www.cri.it/home">Italian Red Cross</a>, with support from the IFRC, is partnering with independent charity <a href="https://www.moas.eu/">Migrant Offshore Aid Station (MOAS)</a> in a joint life-saving mission on board the “Responder” rescue ship.</p>
+    </footer>
+
+<script type="text/javascript">
+  var colorScale = d3.scale.ordinal().domain(["Afder","Doolo","Fafan","Jarar","Korahe","Liben","Nogob","Shabelle","Siti"])
+                                   .range(['#ffffe5','#f7fcb9','#d9f0a3','#addd8e','#78c679','#41ab5d','#238443','#006837','#004529']);
+
+  function hxlProxyToJSON(input,headers){
+    var output = [];
+    var keys=[];
+    input.forEach(function(e,i){
+        if(headers==true && i==0){
+            keys = e;
+            console.log(keys);
+        } else if(headers==true && i>1) {
+            var row = {};
+            e.forEach(function(e2,i2){
+                row[keys[i2]] = e2;
+                //console.log(row);
+            });
+            output.push(row);
+        } else if(headers!=true){
+            var row = {};
+            e.forEach(function(e2,i2){
+                row[keys[i2]] = e2;
+                //console.log(row);
+            });
+            output.push(row);
+        }
+    });
+    return output;
+  }
+
+  function generateStats(id,data){
+      var tSaved   = 0;
+          tMen     = 0;
+          tWomen   = 0;
+          tChild   = 0;
+          tRescues = data.length;
+
+      for(i = 0; i < tRescues; i++) {
+          numSaved  = parseInt(data[i]['Saved Total']);
+          numMen    = parseInt(data[i]['Saved Men']);
+          numWomen  = parseInt(data[i]['Saved Women']);
+          numChild  = parseInt(data[i]['Saved Children']);
+
+          if (!isNaN(numSaved)) {tSaved += numSaved;};
+          if (!isNaN(numMen))   {tMen += numMen;};
+          if (!isNaN(numWomen)) {tWomen += numWomen;};
+          if (!isNaN(numChild)) {tChild += numChild;};
+      }
+
+      //console.log(tMen,tWomen,tChild);
+
+        var html = '<h3>Summary Stats</h3>';
+        html = html + "<p>Total Rescue Operations: <span class='figure'>" + tRescues + '</span><br/>';
+        html = html + "Total People Rescued: <span class='figure'>" + tSaved + '</span><p/>';
+        //html = html + "Total Men: <span class='figure'>" + tMen + '</span><br/>';
+        //html = html + "Total Women: <span class='figure'>" + tWomen + '</span><br/>';
+        //html = html + "Total Children: <span class='figure'>" + tChild + "</span>";
+
+        
+        $(id).html(html);
+        generatePieCharts(tMen,tWomen,tChild);
+  }
+
+  function generateCharts(data) {
+      var mwc = dc.pieChart("#mwc_pieChart");
+        //sad = dc.pieChart("#sad_pieChart")
+
+      var cf_topaz = crossfilter(data);
+
+      var all = cf_topaz.groupAll();
+
+      var rescuesByDateDimension  = cf_topaz.dimension(function(d){ return d["Date"]; });
+      var rescuesByTotalDimension = cf_topaz.dimension(function(d){ return d["Saved Total"]; });
+
+      var totalRescued   = rescuesByTotalDimension.group().reduceSum(function(d) {return d["Saved Men"];});
+      var menGroup   = rescuesByTotalDimension.group().reduceSum(function(d) {return d["Saved Men"];});
+      var womenGroup = rescuesByTotalDimension.group().reduceSum(function(d) {return d["Saved Women"];});
+      var childGroup = rescuesByTotalDimension.group().reduceSum(function(d) {return d["Saved Children"];});
+
+      var rescueGroupsByTotal = cf_topaz.groupAll().reduceSum(function(d){ return d["Saved Total"]; }).value();
+      var rescueGroupsByMen = cf_topaz.groupAll().reduceSum(function(d){ return d["Saved Men"]; });
+      var rescueGroupsByWomen = cf_topaz.groupAll().reduceSum(function(d){ return d["Saved Women"]; });
+      var rescueGroupsByChild = cf_topaz.groupAll().reduceSum(function(d){ return d["Saved Total"] - d["Saved Children"]; }).value();
+
+      mwc.width($('#savedtotal').width()).height(250)
+        .dimension(rescuesByTotalDimension)
+        .group(childGroup)
+        .innerRadius(10)
+            //.externalLabels(-20)
+            //.externalRadiusPadding(0)
+        .colors(function(d){ /*console.log(d);*/ return colorScale(d); })
+        .legend(dc.legend().x(5).y(110).itemHeight(13).gap(2))
+        .renderLabel(true)
+        /*.renderlet(function(e){
+                var html = "";
+                e.filters().forEach(function(l){
+                    html += l+", ";
+                });
+                $('#mapfilter').html(html);
+        })*/;
+
+      dc.dataCount('#savedtotal')
+        .dimension(cf_topaz)
+        .group(rescueGroupsByTotal);
+
+      dc.dataCount('#mentotal')
+        .dimension(cf_topaz)
+        .group(rescueGroupsByMen);
+
+      dc.dataCount('#childtotal')
+        .dimension(cf_topaz)
+        .group(rescueGroupsByChild);
+
+        dc.renderAll();
+
+  }
+
+  function generatePieCharts(tm,tw,tc) {
+    var ctx = document.getElementById("mwcChart");
+    console.log(ctx);
+    var pieData = {
+      labels: ["Men Saved","Women Saved","Children Saved"],
+      datasets: [
+        {
+          data: [tm,tw,tc],
+          backgroundColor: [
+                "#CD0000",
+                "#EE3B3B",
+                "#F08080"
+            ],
+            hoverBackgroundColor: [
+                "#CD0000",
+                "#EE3B3B",
+                "#F08080"
+            ]
+          }]
+    };
+    console.log(pieData);
+
+    mwcChart = new Chart(ctx,{
+      type: 'pie',
+      data: pieData,
+      options: {
+        legend: {
+          display: false
+        }
+      }
+  });
+  }
+
+  var dataCall = $.ajax({ 
+      type: 'GET', 
+      url: 'https://proxy.hxlstandard.org/data.json?strip-headers=off&force=on&url=https%3A//docs.google.com/spreadsheets/d/1RnEigM1KUihlDe9hlM8ndLZro6CIv90fol8HVpnQnYg/pub%3Fgid%3D613947999%26single%3Dtrue%26output%3Dcsv',
+      dataType: 'json',
+  });
+
+  console.log(dataCall);
+  $.when(dataCall).then(function(dataArgs){
+      var data = hxlProxyToJSON(dataArgs,true);
+
+      var dateFormat = d3.time.format("%d/%m/%Y");
+
+      data.forEach(function(d){
+          d['Date'] = dateFormat.parse(d['Date']);
+      });
+
+      console.log("data: ", data);
+
+      generateStats("#key_stats",data);
+    });
 
 
-<script>
-  /*window.onload = function() {
-    cartodb.createVis('map', 'https://nlrc.carto.com/u/redcross-sims/api/v2/viz/557e110a-6460-11e6-b925-0ecd1babdde5/viz.json');
-  }s*/
-  /*var map = L.map('map').setView([33.5, 12], 7);
-  L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoieWFjYXJhMTUiLCJhIjoiNXVrS0RCayJ9.bj4shIClebK96-k4pHzgdA', {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    maxZoom: 12
-  }).addTo(map);
-
-  // add the cartodb layer
-  var layerUrl = 'https://nlrc.carto.com/u/redcross-sims/api/v2/viz/557e110a-6460-11e6-b925-0ecd1babdde5/viz.json';
-  cartodb.createLayer(map, layerUrl, {
-    legends:false
-  }).addTo(map);*/
 
 </script>
 </body>
