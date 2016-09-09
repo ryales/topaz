@@ -4,19 +4,16 @@ function hxlProxyToJSON(input,headers){
   input.forEach(function(e,i){
       if(headers==true && i==0){
           keys = e;
-          console.log(keys);
       } else if(headers==true && i>1) {
           var row = {};
           e.forEach(function(e2,i2){
               row[keys[i2]] = e2;
-              //console.log(row);
           });
           output.push(row);
       } else if(headers!=true){
           var row = {};
           e.forEach(function(e2,i2){
               row[keys[i2]] = e2;
-              //console.log(row);
           });
           output.push(row);
       }
@@ -114,6 +111,10 @@ function generateCharts(data) {
 
 }
 
+function outputMedia(media) {
+
+}
+
 function generatePieCharts(tm,tw,tc,td) {
   var mwc = document.getElementById("mwcChart");
   //console.log(mwc);
@@ -182,8 +183,15 @@ var dataCall = $.ajax({
     dataType: 'json',
 });
 
-$.when(dataCall).then(function(dataArgs){
-    var data = hxlProxyToJSON(dataArgs,true);
+var mediaCall = $.ajax({
+    type: 'GET',
+    url: 'https://proxy.hxlstandard.org/data.json?strip-headers=off&force=on&url=https%3A//docs.google.com/spreadsheets/d/1pH0ztwQ8_EUOIKHhi1U15A6W4eLgCnn8IoWBEYTVnUM/pub%3Fgid%3D0%26single%3Dtrue%26output%3Dcsv',
+    dataType: 'json',
+});
+
+$.when(dataCall,mediaCall).then(function(dataArgs,mediaArgs){
+    var data  = hxlProxyToJSON(dataArgs[0],true);
+        media = hxlProxyToJSON(mediaArgs[0],true);
 
     var dateFormat = d3.time.format("%d/%m/%Y");
 
@@ -191,7 +199,12 @@ $.when(dataCall).then(function(dataArgs){
         d['Date'] = dateFormat.parse(d['Date']);
     });
 
-    console.log("data: ", data);
+    media.forEach(function(d){
+        d['DATE'] = dateFormat.parse(d['DATE']);
+    })
 
+    console.log("Data: ", data);
+    console.log("Media: ", media);
     generateStats("#tot_stats","#sad_stats",data);
-  });
+    outputMedia(media);
+});
