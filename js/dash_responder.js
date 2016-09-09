@@ -112,8 +112,67 @@ function generateCharts(data) {
 }
 
 function outputMedia(media) {
+  var o1 = "";
+      o2 = "";
+      o3 = "";
 
+  console.log(media);
+
+  for (i = 0; i < media.length; i++) {
+    if (media[i]['Category'] == "Video") {
+      o1 += "<li class=list-group-item><a href=" + media[i]['URL'] + ">" + media[i]['Title'] + "</a></li> ";
+    } else if (media[i]['Category'] == "Story") {
+      o2 += "<li class=list-group-item><a href=" + media[i]['URL'] + ">" + media[i]['Title'] + "</a></li> ";
+    } else if (media[i]['Category'] == "Photos") {
+      o3 += "<li class=list-group-item><a href=" + media[i]['URL'] + ">" + media[i]['Title'] + "</a></li> ";
+    }
+  }
+
+  var html1 = "";
+      html1 = html1 + o1;
+
+  var html2 = "";
+      html2 = html2 + o2;
+
+  var html3 = "";
+      html3 = html3 + o3;
+
+  $(videoOutput).html(html1);
+  $(newsOutput).html(html2);
+  $(photoOutput).html(html3);
 }
+
+/*function outputMedia(media) {
+  var o1 = [];
+      o2 = [];
+      o3 = [];
+
+  console.log(media,o1,o2,o3);
+
+  for (i = 0; i < media.length; i++) {
+    console.log(media[3]);
+    if (media[i]['Category'] == "Video") {
+      var url = media[i]['URL'];
+          title = media[i]['Title'];
+
+      o1.push("<li class='list-group-item'><a href='" + url + ">" + title + "</a></li>");
+    } else if (media[i]['Category'] == "Story") {
+      var url = media[i]['URL'];
+          title = media[i]['Title'];
+
+      o2.push("<li class='list-group-item'><a href='" + url + ">" + title + "</a></li>");
+    } else if (media[i]['Category'] == "Photos") {
+      var url = media[i]['URL'];
+          title = media[i]['Title'];
+
+      o3.push("<li class='list-group-item'><a href='" + url + ">" + title + "</a></li>");
+    }
+  }
+
+  console.log(o1);
+  console.log(o2);
+  console.log(o3);
+}*/
 
 function generatePieCharts(tm,tw,tc,td) {
   var mwc = document.getElementById("mwcChart");
@@ -139,7 +198,6 @@ function generatePieCharts(tm,tw,tc,td) {
 
   mwcChart = new Chart(mwc,{
     type: 'pie',
-    responsive: false,
     data: mwcData,
     options: {
       legend: {
@@ -205,6 +263,6 @@ $.when(dataCall,mediaCall).then(function(dataArgs,mediaArgs){
 
     console.log("Data: ", data);
     console.log("Media: ", media);
-    generateStats("#tot_stats","#sad_stats",data);
     outputMedia(media);
+    generateStats("#tot_stats","#sad_stats",data);
 });
