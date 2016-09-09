@@ -4,159 +4,30 @@
 body {
   font-family: 'Gotham-Light', sans-serif;
   font-weight: 350;
-  margin-bottom:20px;
 }
-
 
 /* Red Headings */
-h1,h2 {
-  color:#B71C1C;
-  font-weight: bold;
-}
+h1,h2 { color:#B71C1C; font-weight: bold; }
 
-h1 {
-  margin-top: 10px;
-}
+/* Page Title Heading */
+.navbar-header > h1 { margin-top:10px; }
 
-h2 {
-  font-size: 1.75em;
-  margin-bottom: 20px;
-}
+/* H2 Headings */
+h2 { font-size: 1.5em; margin-top:0px;}
 
-h3 {
-  font-size: 1.25em;
-  font-weight: bold;
-}
+/* H3 Headings */
+h3 { font-size: 1.25em; font-weight: bold; }
 
-/* Red hyperlinks */
-a {
-    color:#B71C1C;
-}
+/* Red Hyperlinks */
+a       { color:#B71C1C; }
+a:hover { color:#B71C1C; }
 
-a:hover {
-    color:#B71C1C;
-}
-
-.text-center {
-  margin-top: 0px;
-}
-
-.titledesc{
-    font-size:1.1em;
-}
-
-.source {
-  font-size: .9em;
-  font-style: italic;
-  color: gray;
-}
-
-p {
-    font-size:.9em;
-    text-align: justify;
-}
-
-.rightfloat {
-    float:right;
-}
-
-.rightalign {
-	text-align: right;
-}
-
-.desc {
-  font-size: .8em;
-}
-
-.keyfiguredesc {
-    font-size:1.5em;
-}
-
-.keyfigure {
-    color: #B71C1C;
-    font-size:60px;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.data {
-    font-size:1em;
-    padding-bottom:10px;
-}
-
-.keyfigureunit {
-    font-size:0.5em;
-    color:#000;
-}
-
-.title {
-    margin-top:20px;
-    margin-bottom:20px;
-    background-color:#eee;
-}
-
-#image {
-    margin-top:20px;
-}
-
-.spark {
-    padding-left:10px;
-}
-
-.margintop30 {
-    margin-top:30px;
-}
-
-.margintop20 {
-    margin-top:20px;
-}
-
-.margintop10 {
-    margin-top:10px;
-}
-
-#graphs {
-    min-height:800px;
-}
-
-.nav_content {
-  margin-left: 15px;
-  margin-right: 15px;
-}
-
-.footer {
-  padding-right: 15px;
-  padding-left: 15px;
-}
-
-#map {
-  height: 500px;
-  overflow: hidden;
-}
-
-main {
-  margin-top: 60px;
-  vmax: 80vh;
-}
-
-.navbar-right {
-  margin-top: 5px;
-}
-
-#logo {
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-right: 15;
-  padding-left: 0;
+.container {
+  width: 97%;
 }
 
 /* Buttons */
-.btn {
+.btn-md,.btn-sm {
   background: #e60000;  /* button colour */
   color: #ffffff;     /* text colour */
   border: #e60000;
@@ -166,85 +37,33 @@ main {
   border-radius: 10px;
 }
 
-a.btn:hover, a.btn:focus {
-  background: #e60000;
-  color: ##B71C1C;
-}
-
-.row {
-  margin-left: auto;
-  margin-right: auto;
-  overflow: hidden;
-}
-
-/* Images */
-.img-head {
+.navbar-default .navbar-nav > li > a.btn-md.btn-sm {
   margin-top: 15px;
-  border-radius: 10px;
-}
-
-footer {
-  margin-top: 15px;
-}
-
-.map-text {
-  margin: 15px;
-  font-size: .85em;
-}
-
-.sm_logo {
-  margin-left:0px;
-  margin-right:0px;
-}
-
-.figure {
-  float:right;
-}
-
-li {
-  list-style-type: none;
-}
-
-ul {
-  padding-left: 0px;
-}
-
-@media (max-width: 768px) {
-  img {
-    height: 80%;
-  }
-  .media {
-    font-size: 80%;
-  }
-  canvas {
-    height: 50%;
-    width: 50%;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 992px) {
-  img {
-    height: 80%;
-  }
-  .media {
-    font-size: 80%;
-  }
-  canvas {
-    height: 50%;
-    width: 50%;
-  }
-}
-
-/* Button in Navbar */
-a.btn.btn-header {
-  font-size: 1em;
-  margin-right:10px;
-  margin-top:10px;
   color: #ffffff;
   padding: 5px;
 }
 
-a.btn.btn-header:hover, a.btn.btn-header:focus {
+.navbar-default .navbar-nav > li > a.btn-md.btn-sm:focus,
+.navbar-default .navbar-nav > li > a.btn-md.btn-sm:hover {
   background: #e60000;
-  color: ##B71C1C; 
+  color: ##B71C1C;
 }
+
+.figure {
+  float: right;
+  font-weight: bold;
+  color: #B71C1C;
+}
+
+.img-center { margin:0 auto; border-radius:10px; }
+
+main { margin-top: 75px; }
+
+p { font-size: .9em; }
+
+/* Breakpoints */
+@media (min-width: 963px) and (max-width: 1090px) { main { margin-top: 80px; } }
+@media (min-width: 760px) and (max-width: 962px) { main { margin-top: 130px; } }
+@media (min-width: 615px) and (max-width: 759px) { main { margin-top: 70px; } .img-center { margin-top: 10px; margin-bottom: 10px;} }
+@media (min-width: 400px) and (max-width: 614px) { main { margin-top: 110px; } .img-center { margin-top: 10px; margin-bottom: 10px;} }
+@media (max-width: 399px) { main { margin-top: 150px; } }
