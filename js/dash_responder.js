@@ -116,16 +116,33 @@ function outputMedia(media) {
       o2 = "";
       o3 = "";
 
-  console.log(media);
+  var videoArray = [];
+  var storyArray = [];
+  var photoArray = [];
 
+  // Push list items to arrays by category
   for (i = 0; i < media.length; i++) {
     if (media[i]['Category'] == "Video") {
-      o1 += "<li class=list-group-item><a href=" + media[i]['URL'] + ">" + media[i]['Title'] + "</a></li> ";
+      videoArray.push("<li class=list-group-item><a href=" + media[i]['URL'] + ">" + media[i]['Title'] + "</a></li> ");
     } else if (media[i]['Category'] == "Story") {
-      o2 += "<li class=list-group-item><a href=" + media[i]['URL'] + ">" + media[i]['Title'] + "</a></li> ";
+      storyArray.push("<li class=list-group-item><a href=" + media[i]['URL'] + ">" + media[i]['Title'] + "</a></li> ");     
     } else if (media[i]['Category'] == "Photos") {
-      o3 += "<li class=list-group-item><a href=" + media[i]['URL'] + ">" + media[i]['Title'] + "</a></li> ";
+      photoArray.push("<li class=list-group-item><a href=" + media[i]['URL'] + ">" + media[i]['Title'] + "</a></li> ");
     }
+  }
+
+  // Output first five items per category if more than 5
+  for ( k = 0; k < 5; k++ ) {
+    if (k > videoArray.length - 1) { break; }
+    o1 += videoArray[k];
+  }
+  for ( k = 0; k < 5; k++ ) {
+    if (k > storyArray.length - 1) { break; }
+    o2 += storyArray[k];
+  }
+  for ( k = 0; k < 5; k++ ) {
+    if (k > photoArray.length - 1) { break; }
+    o3 += photoArray[k];   
   }
 
   var html1 = "";
