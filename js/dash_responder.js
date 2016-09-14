@@ -22,39 +22,124 @@ function hxlProxyToJSON(input,headers){
 }
 
 function generateStats(idA,idB,data){
-    var tSaved   = 0;
-        tMen     = 0;
-        tWomen   = 0;
-        tChild   = 0;
-        tDead    = 0;
-        tRescues = data.length;
+    // Define variables for demographic stats
+    var tEmbark    = 0;
+        tDisembark = 0;
 
-    for(i = 0; i < tRescues; i++) {
-        numSaved  = parseInt(data[i]['Saved Total']);
-        numMen    = parseInt(data[i]['Saved Men']);
-        numWomen  = parseInt(data[i]['Saved Women']);
-        numChild  = parseInt(data[i]['Saved Children']);
-        numDead   = parseInt(data[i]['Dead Total']);
+        tTransIn   = 0;
+        tTransOut  = 0;
 
-        if (!isNaN(numSaved)) {tSaved += numSaved;};
+        tRescue    = 0;
+        tMen       = 0;
+        tWomen     = 0;
+        tChild     = 0;
+        tDead      = 0;
+        tOps = data.length;
+
+    // Define variables for operations counts
+    var tRescueOps    = 0;
+        tDisembarkOps = 0;
+        tTransInOps   = 0;
+        tTransOutOps  = 0;
+
+    var pplRescued   = 0;
+        pplTransIn   = 0;
+        pplTransOut  = 0;
+        pplDisembark = 0;
+
+    for(i = 0; i < tOps; i++) {
+        numEmbark    = parseInt(data[i]['sTotal']);
+        numDisembark = parseInt(data[i]['disTotal']);
+
+        if (!isNaN(numEmbark)) {tEmbark += numEmbark;};
+        if (!isNaN(numDisembark)) {tDisembark += numDisembark;};
+
+        numMen    = parseInt(data[i]['sMen']);
+        numWomen  = parseInt(data[i]['sWomen']);
+        numChild  = parseInt(data[i]['sChildren']);
+        numDead   = parseInt(data[i]['dTotal']);
+
         if (!isNaN(numMen))   {tMen   += numMen;};
         if (!isNaN(numWomen)) {tWomen += numWomen;};
         if (!isNaN(numChild)) {tChild += numChild;};
-        if (!isNaN(numDead)) {tDead += numDead;};
+        if (!isNaN(numDead))  {tDead  += numDead;};
+
+        if (data[i]['opType'] == "Rescue") {
+          tRescue += 1;
+          pplRescued += parseInt(data[i]['sTotal']);
+        } else if (data[i]['opType'] == "Disembarkment") {
+          tDisembark += 1;
+          pplDisembark += parseInt(data[i]['disTotal']); 
+        } else if (data[i]['opType'] == "Transfer In") {
+          tTransIn += 1;
+          pplTransIn += parseInt(data[i]['sTotal']);
+        } else if (data[i]['opType'] == "Transfer Out") {
+          tTransOut += 1;
+          pplTransOut += parseInt(data[i]['disTotal']);
+        }
+
     }
 
-    //console.log(tMen,tWomen,tChild);
+        console.log("Total Embarked: " + tEmbark);
+        console.log("Total Disembarked: " + tDisembark);
+        console.log("Total Men: " + tMen);
+        console.log("Total Women: " + tWomen);
+        console.log("Total Children: " + tChild);
+        console.log("Total Dead: " + tDead);
+
+        console.log("Total Rescued: " + pplRescued);
+        console.log("Total Transferred In: " + pplTransIn);
+        console.log("Total Transferred Out: " + pplTransOut);
+        console.log("Total Disembarked: " + pplDisembark);
+
+
+
+    // Push list items to arrays by category
+    for (i = 0; i < tOps; i++) {
+      if (data[i]['opType'] == "Rescue") {
+        tRescueOps += 1;
+      } else if (data[i]['opType'] == "Disembarkment") {
+        tDisembarkOps += 1;     
+      } else if (data[i]['opType'] == "Transfer In") {
+        tTransInOps += 1;
+      } else if (data[i]['opType'] == "Transfer Out") {
+        tTransOutOps += 1;
+      }
+    }
+
+    console.log(tOps,tMen,tWomen,tChild);
+    console.log(tRescueOps,tDisembarkOps,tTransInOps,tTransOutOps);
+
 
       var htmlA = '<h3>STATISTICS</h3>';
-      htmlA = htmlA + "<p>Rescues: <span class='figure'>" + tRescues + '</span><br/>';
+      htmlA = htmlA + "<p>Operations: <span class='figure'>" + tOps + '</span><br/>';
       htmlA = htmlA + "Bodies Recovered: <span class='figure'>" + tDead + "</span></br>";
-      htmlA = htmlA + "People Rescued: <span class='figure'>" + tSaved + '</span><p/>';
+      htmlA = htmlA + "People Rescued: <span class='figure'>" + pplRescued + '</span><p/>';
 
-      //var htmlB = "<p>Bodies Recovered: <span class='figure'>" + tDead + '</span></p>';
+      var htmlB = "<img alt='Rescue Symbol' title='People Rescued from the Sea' class='icon' src='img/rescue_black.svg'>";
+      htmlB = htmlB + "<span class='figure figure-padding'>" + pplRescued + "</span><br/>";
+      htmlB = htmlB + "<img alt='Transferred In Symbol' title='People Taken Onboard from Other Rescue Vessels' class='icon' src='img/transfer_in_black.svg'>";
+      htmlB = htmlB + "<span class='figure figure-padding'>" + pplTransIn + "</span>";
+
+
+      var htmlC = "<img alt='Disembark Symbol' title='People Disembarked on Land' class='icon' src='img/disembark_black.svg'>";
+      htmlC = htmlC + "<span class='figure figure-padding'>" + pplDisembark + "</span><br/>";
+      htmlC = htmlC + "<img  alt='Transferred Out Symbol' title='People Transferred to Other Rescue Vessels' class='icon' src='img/transfer_out_black.svg'>";
+      htmlC = htmlC + "<span class='figure figure-padding'>" + pplTransOut + "</span>";
+
+      /*
+
+       + tRescues;
+       + tDisembark;
+      htmlB = htmlB + "</div></div><div class='col-md-3 col-sm-6'>";
+       </br>" + tTransIn;
+       </br>" + tTransOut;*/
+      
 
       $(idA).html(htmlA);
-      //$(idB).html(htmlB);
-      generatePieCharts(tMen,tWomen,tChild,tDead);
+      $('#embark_stats').html(htmlB);
+      $('#disembark_stats').html(htmlC);
+      generatePieCharts(tMen,tWomen,tChild,tDead,pplRescued,pplDisembark,pplTransOut,pplTransIn);
 }
 
 function generateCharts(data) {
@@ -65,18 +150,18 @@ function generateCharts(data) {
 
     var all = cf_topaz.groupAll();
 
-    var rescuesByDateDimension  = cf_topaz.dimension(function(d){ return d["Date"]; });
-    var rescuesByTotalDimension = cf_topaz.dimension(function(d){ return d["Saved Total"]; });
+    var rescuesByDateDimension  = cf_topaz.dimension(function(d){ return d["date"]; });
+    var rescuesByTotalDimension = cf_topaz.dimension(function(d){ return d["sTotal"]; });
 
-    var totalRescued   = rescuesByTotalDimension.group().reduceSum(function(d) {return d["Saved Men"];});
-    var menGroup   = rescuesByTotalDimension.group().reduceSum(function(d) {return d["Saved Men"];});
-    var womenGroup = rescuesByTotalDimension.group().reduceSum(function(d) {return d["Saved Women"];});
-    var childGroup = rescuesByTotalDimension.group().reduceSum(function(d) {return d["Saved Children"];});
+    var totalRescued   = rescuesByTotalDimension.group().reduceSum(function(d) {return d["sMen"];});
+    var menGroup   = rescuesByTotalDimension.group().reduceSum(function(d) {return d["sMen"];});
+    var womenGroup = rescuesByTotalDimension.group().reduceSum(function(d) {return d["sWomen"];});
+    var childGroup = rescuesByTotalDimension.group().reduceSum(function(d) {return d["sChildren"];});
 
-    var rescueGroupsByTotal = cf_topaz.groupAll().reduceSum(function(d){ return d["Saved Total"]; }).value();
-    var rescueGroupsByMen = cf_topaz.groupAll().reduceSum(function(d){ return d["Saved Men"]; });
-    var rescueGroupsByWomen = cf_topaz.groupAll().reduceSum(function(d){ return d["Saved Women"]; });
-    var rescueGroupsByChild = cf_topaz.groupAll().reduceSum(function(d){ return d["Saved Total"] - d["Saved Children"]; }).value();
+    var rescueGroupsByTotal = cf_topaz.groupAll().reduceSum(function(d){ return d["sTotal"]; }).value();
+    var rescueGroupsByMen = cf_topaz.groupAll().reduceSum(function(d){ return d["sMen"]; });
+    var rescueGroupsByWomen = cf_topaz.groupAll().reduceSum(function(d){ return d["sWomen"]; });
+    var rescueGroupsByChild = cf_topaz.groupAll().reduceSum(function(d){ return d["sTotal"] - d["sChildren"]; }).value();
 
     mwc.width($('#savedtotal').width()).height(250)
       .dimension(rescuesByTotalDimension)
@@ -159,39 +244,7 @@ function outputMedia(media) {
   $(photoOutput).html(html3);
 }
 
-/*function outputMedia(media) {
-  var o1 = [];
-      o2 = [];
-      o3 = [];
-
-  console.log(media,o1,o2,o3);
-
-  for (i = 0; i < media.length; i++) {
-    console.log(media[3]);
-    if (media[i]['Category'] == "Video") {
-      var url = media[i]['URL'];
-          title = media[i]['Title'];
-
-      o1.push("<li class='list-group-item'><a href='" + url + ">" + title + "</a></li>");
-    } else if (media[i]['Category'] == "Story") {
-      var url = media[i]['URL'];
-          title = media[i]['Title'];
-
-      o2.push("<li class='list-group-item'><a href='" + url + ">" + title + "</a></li>");
-    } else if (media[i]['Category'] == "Photos") {
-      var url = media[i]['URL'];
-          title = media[i]['Title'];
-
-      o3.push("<li class='list-group-item'><a href='" + url + ">" + title + "</a></li>");
-    }
-  }
-
-  console.log(o1);
-  console.log(o2);
-  console.log(o3);
-}*/
-
-function generatePieCharts(tm,tw,tc,td) {
+function generatePieCharts(tm,tw,tc,td,pr,pd,po,pi) {
   var mwc = document.getElementById("mwcChart");
   //console.log(mwc);
   var mwcData = {
@@ -216,6 +269,38 @@ function generatePieCharts(tm,tw,tc,td) {
   mwcChart = new Chart(mwc,{
     type: 'pie',
     data: mwcData,
+    options: {
+      legend: {
+        display: false
+      }
+    }
+  });
+
+  var ops = document.getElementById("opsChart");
+  //console.log(mwc);
+  var opsData = {
+    labels: ["Rescued from the Sea","Disembarked on Land","Transferred to Other Rescue Vessel","Transferred onto the Responder Vessel"],
+    datasets: [
+      {
+        data: [pr,pd,po,pi],
+        backgroundColor: [
+              "#CD0000",
+              "#EE3B3B",
+              "#F08080",
+              "#F07432"
+          ],
+          hoverBackgroundColor: [
+              "#CD0000",
+              "#EE3B3B",
+              "#F08080",
+              "#F07432"
+          ]
+        }]
+  };
+
+  mwcChart = new Chart(ops,{
+    type: 'pie',
+    data: opsData,
     options: {
       legend: {
         display: false
@@ -271,7 +356,7 @@ $.when(dataCall,mediaCall).then(function(dataArgs,mediaArgs){
     var dateFormat = d3.time.format("%d/%m/%Y");
 
     data.forEach(function(d){
-        d['Date'] = dateFormat.parse(d['Date']);
+        d['Date'] = dateFormat.parse(d['date']);
     });
 
     media.forEach(function(d){
@@ -281,5 +366,5 @@ $.when(dataCall,mediaCall).then(function(dataArgs,mediaArgs){
     console.log("Data: ", data);
     console.log("Media: ", media);
     outputMedia(media);
-    generateStats("#tot_stats","#sad_stats",data);
+    generateStats("#tot_stats","#ops_stats",data);
 });
