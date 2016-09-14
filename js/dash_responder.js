@@ -112,20 +112,20 @@ function generateStats(idA,idB,data){
 
 
       var htmlA = '<h3>STATISTICS</h3>';
-      htmlA = htmlA + "<p>Operations: <span class='figure'>" + tOps + '</span><br/>';
+      htmlA = htmlA + "<p>Rescues: <span class='figure'>" + tRescueOps + '</span><br/>';
       htmlA = htmlA + "Bodies Recovered: <span class='figure'>" + tDead + "</span></br>";
       htmlA = htmlA + "People Rescued: <span class='figure'>" + pplRescued + '</span><p/>';
 
       var htmlB = "<img alt='Rescue Symbol' title='People Rescued from the Sea' class='icon' src='img/rescue_black.svg'>";
-      htmlB = htmlB + "<span class='figure figure-padding'>" + pplRescued + "</span><br/>";
+      htmlB = htmlB + "<span class='figure-padding'>" + pplRescued + "</span><br/>";
       htmlB = htmlB + "<img alt='Transferred In Symbol' title='People Taken Onboard from Other Rescue Vessels' class='icon' src='img/transfer_in_black.svg'>";
-      htmlB = htmlB + "<span class='figure figure-padding'>" + pplTransIn + "</span>";
+      htmlB = htmlB + "<span class='figure-padding'>" + pplTransIn + "</span>";
 
 
       var htmlC = "<img alt='Disembark Symbol' title='People Disembarked on Land' class='icon' src='img/disembark_black.svg'>";
-      htmlC = htmlC + "<span class='figure figure-padding'>" + pplDisembark + "</span><br/>";
+      htmlC = htmlC + "<span class='figure-padding'>" + pplDisembark + "</span><br/>";
       htmlC = htmlC + "<img  alt='Transferred Out Symbol' title='People Transferred to Other Rescue Vessels' class='icon' src='img/transfer_out_black.svg'>";
-      htmlC = htmlC + "<span class='figure figure-padding'>" + pplTransOut + "</span>";
+      htmlC = htmlC + "<span class='figure-padding'>" + pplTransOut + "</span>";
 
       /*
 
